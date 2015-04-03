@@ -55,6 +55,15 @@ class Universe
 		end
 		live_neighbours
 	end
+	def all_live_cell
+		cells.select { |cell| cell.alive}
+	end
+
+	def randomly_recovery
+		cells.each do |cell|
+			cell.alive =  rand > 0.6 ? false : true
+		end
+	end
 end
 
 

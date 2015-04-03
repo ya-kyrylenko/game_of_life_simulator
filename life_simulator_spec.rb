@@ -9,7 +9,7 @@ describe "Game" do
 		# Should create a new Universe oject
 		it { expect(subject).to be_a Universe }
 		it { expect(subject.grid).to be_a Array }
-		it { should respond_to(:rows, :columns, :grid, :cells) }
+		it { should respond_to(:rows, :columns, :grid, :cells, :randomly_recovery) }
 		it 'Array must create Cell class' do
 			subject.grid.each do |row|
 				row.each do |colum|
@@ -48,6 +48,12 @@ describe "Game" do
 		it 'Detects live neighbour to the bottom-right' do
 			subject.grid[cell.y + 1][cell.x + 1].alive = true
 			expect(subject.neighbours(cell).count).to eq 1
+		end
+
+		it 'Must randomly recovery our universe' do
+			expect(subject.all_live_cell.count).to eq 0
+			subject.randomly_recovery
+			expect(subject.all_live_cell.count).to_not eq 0
 		end
 	end
 
