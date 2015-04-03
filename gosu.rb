@@ -44,15 +44,16 @@ class GameWindow < Gosu::Window
       end
     end
   end
+
   def needs_cursor?
     true
   end
 
   def button_down(id)
-    if id == Gosu::KbEscape
+    case
+    when id == Gosu::KbEscape
       close
-    end
-    if id == Gosu::KbR
+    when id == Gosu::KbR
       @game.universe.randomly_recovery
     end
   end
