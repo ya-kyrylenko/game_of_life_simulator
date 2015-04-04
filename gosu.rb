@@ -2,11 +2,12 @@ require 'gosu'
 require_relative 'life-simulator.rb'
 
 class GameWindow < Gosu::Window
+  attr_accessor :count
   def initialize(height=1200, width=900)
     @height = height
     @width = width
     super(height, width, false)
-    self.caption = "Game of life     (¬_¬)  press Escape to exit ^~^ press R to restart the Universe ツ"
+
 
     @background = Gosu::Color.new(0xffbbf6e2)
     @alive_color = Gosu::Color.new(0xff42e5ae)
@@ -19,10 +20,12 @@ class GameWindow < Gosu::Window
     @universe = Universe.new(@columns, @rows)
     @game = LogicGame.new(@universe)
     @game.universe.randomly_recovery
+    # self.caption = "Game of life     (¬_¬) life cycles: #{@game.cycles} ^~^ press R to restart the Universe ツ"
   end
 
   def update
     @game.step!
+    self.caption = "Game of life     (¬_¬) life cycles: #{@game.cycles} ^~^ press R to restart the Universe ツ"
   end
 
   def draw
@@ -55,6 +58,7 @@ class GameWindow < Gosu::Window
       close
     when id == Gosu::KbR
       @game.universe.randomly_recovery
+      @game.cycles = 0
     end
   end
 

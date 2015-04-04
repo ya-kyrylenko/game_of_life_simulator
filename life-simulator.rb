@@ -94,7 +94,7 @@ end
 
 
 class LogicGame
-	attr_accessor :universe, :fortestcells
+	attr_accessor :universe, :fortestcells, :cycles
 	def initialize(universe = Universe.new, fortestcells = [])
 		@universe = universe
 		@fortestcells = fortestcells
@@ -103,9 +103,11 @@ class LogicGame
 			# testseel[0] - y, testcell[1] - x.
 			universe.grid[testcell[0]][testcell[1]].alive = true
 		end
+		@cycles = 0
 	end
 
 	def step!
+		@cycles += 1
 		will_live_cells = []
 		will_die_cells = []
 		universe.cells.each do |cell|
